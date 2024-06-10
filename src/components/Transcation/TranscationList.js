@@ -10,6 +10,7 @@ function TransactionList(props) {
         {transactions.map((element) => (
           <TranscationItem
             key={element.id}
+            id={element.id}
             text={element.text}
             amount={element.amount}
           />

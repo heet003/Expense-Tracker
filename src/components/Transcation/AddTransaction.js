@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { GlobalContext } from "../../context/GlobalState";
+
 function AddTransaction(props) {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState("");
+  const { transactions, addTransaction } = useContext(GlobalContext);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const newTransaction = {
+      id: transactions.length + 1,
+      text,
+      amount: +amount,
+    };
+    setAmount("");
+    setText("");
+    addTransaction(newTransaction);
+  }
+
   return (
     <div>
       <h3>Add new transaction</h3>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-control">
           <label htmlFor="text">Text</label>
           <input
@@ -15,6 +33,7 @@ function AddTransaction(props) {
               setText(e.target.value);
             }}
             placeholder="Enter text..."
+            required
           />
         </div>
         <div className="form-control">
@@ -29,9 +48,12 @@ function AddTransaction(props) {
               setAmount(e.target.value);
             }}
             placeholder="Enter amount..."
+            required
           />
         </div>
-        <button className="btn">Add transaction</button>
+        <button type="submit" className="btn">
+          Add transaction
+        </button>
       </form>
     </div>
   );

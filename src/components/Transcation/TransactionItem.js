@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalState";
-
+import "./Transaction.css";
 function TranscationItem(props) {
   const { deleteTransaction } = useContext(GlobalContext);
   const sign = props.amount < 0 ? "-" : "+";
